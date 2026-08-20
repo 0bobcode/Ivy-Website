@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: identity-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/identity}
+    username: ${DB_USERNAME:identity}
+    password: ${DB_PASSWORD:identity}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  port: ${PORT:8081}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  jwt:
+    # Base64-encoded 256-bit signing key. Never a real value in source — always
+    # injected via env var / Secrets Manager per ARCHITECTURE.md §7.5. The
+    # fallback below is dev-only and intentionally weak so it's obviously unsafe
+    # to run in production unchanged.
+    signing-key: ${JWT_SIGNING_KEY:EkJhv0PYhE10yftrzM4INK3oXXdzi+21oKyrrH8XuuM=}
+    access-token-ttl: PT15M
+    refresh-token-ttl: P30D
+  encryption:
+    # Base64-encoded 256-bit AES key for envelope-encrypting MFA secrets at rest.
+    # Same rule as above: real deployments source this from KMS, not a property file.
+    master-key: ${MFA_ENCRYPTION_KEY:aJ4/3TGCZ4U0HbM2jxsR23RH2D1S1e3o8olIbi/FHEc=}
+  captcha:
+    enabled: ${CAPTCHA_ENABLED:false}
+    secret: ${RECAPTCHA_SECRET:}
+  password-breach-check:
+    enabled: ${BREACH_CHECK_ENABLED:true}
+  password-reset:
+    # true here only because this project has no deployment target yet and no
+    # email service to carry the real link (see AuthController). Set false —
+    # or just delete the override — the moment this runs anywhere but a dev
+    # laptop.
+    expose-token-in-response: ${EXPOSE_RESET_TOKEN:true}

@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Java / Maven
+target/
+*.class
+*.log
+
+# Node (web/ has its own, this catches anything else)
+node_modules/
+.next/
+.data/
+
+# Local scratch
+*.local

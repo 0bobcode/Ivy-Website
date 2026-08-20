@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: course-catalog-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/catalog}
+    username: ${DB_USERNAME:catalog}
+    password: ${DB_PASSWORD:catalog}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 512MB
+      max-request-size: 512MB
+
+server:
+  port: ${PORT:8082}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  jwt:
+    # Must match identity-service's app.jwt.signing-key — both services verify
+    # tokens against the same HMAC secret (ARCHITECTURE.md §7.1). In production
+    # this is injected identically into both services via Secrets Manager, never
+    # hardcoded (§7.5); the value below is the same dev-only fallback used by
+    # identity-service so local `mvn spring-boot:run` works out of the box.
+    signing-key: ${JWT_SIGNING_KEY:EkJhv0PYhE10yftrzM4INK3oXXdzi+21oKyrrH8XuuM=}
+  identity:
+    # TCH-03 roster resolves student emails via identity-service's own DB
+    # (database-per-service — no direct DB access across services).
+    base-url: ${IDENTITY_API_URL:http://localhost:8081}
+  media:
+    # Local-disk stopgap for Content & Media (ARCHITECTURE.md §6) until S3 +
+    # CloudFront + MediaConvert are wired up in a later sprint. Swappable
+    # behind MediaStorage without touching callers.
+    upload-dir: ${MEDIA_UPLOAD_DIR:./.data/media}
+    base-url: ${MEDIA_BASE_URL:http://localhost:8082/media}

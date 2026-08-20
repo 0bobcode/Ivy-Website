@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand green — CTAs, links, accent text */
+  --color-brand-50: #eaf4ea;
+  --color-brand-100: #d2e7d4;
+  --color-brand-200: #a6d0ab;
+  --color-brand-300: #79b881;
+  --color-brand-400: #57a562;
+  --color-brand-500: #3f8f4c;
+  --color-brand-600: #357a41;
+  --color-brand-700: #2c6436;
+  --color-brand-800: #244f2c;
+  --color-brand-900: #1c3e23;
+
+  /* Forest — dark section backgrounds */
+  --color-forest-500: #3c6b46;
+  --color-forest-600: #2f5938;
+  --color-forest-700: #274a2e;
+  --color-forest-800: #203c26;
+  --color-forest-900: #1a301f;
+
+  /* Ink — footer / deepest surfaces */
+  --color-ink-900: #0b0f0d;
+  --color-ink-800: #101512;
+
+  /* Navy — hero photo scrim */
+  --color-navy-900: #0e1a2b;
+  --color-navy-800: #16283e;
+  --color-navy-700: #1f3b57;
+
+  /* Cream — soft section background */
+  --color-cream-50: #f8faf3;
+  --color-cream-100: #f1f5e9;
+
+  /* Neutral ink-tinted grays for text */
+  --color-ink-50: #f5f6f4;
+  --color-ink-100: #e7eae4;
+  --color-ink-200: #d3d8cd;
+  --color-ink-400: #8b9689;
+  --color-ink-500: #5c6a5c;
+  --color-ink-600: #414f42;
+  --color-ink-700: #2b362c;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: var(--color-ink-700);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.balance {
+  text-wrap: balance;
+}
